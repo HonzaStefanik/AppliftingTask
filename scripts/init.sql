@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS user(
-	id int,
+	id int PRIMARY KEY ,
 	user_name varchar(255),
 	email varchar(255),
 	access_token varchar(255)
