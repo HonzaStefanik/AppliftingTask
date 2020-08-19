@@ -1,1 +1,18 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      show_sql: true
+      format_sql: true
 
+  datasource:
+    url: jdbc:mysql://172.22.0.2:3306/applifting
+    username: root
+    password: root
+
+logging:
+  level:
+    org:
+      hibernate:
+        type: debug
