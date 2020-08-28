@@ -8,3 +8,6 @@ spring:
     url: jdbc:mysql://172.22.0.2:3306/applifting
     username: root
     password: root
+
+jobs:
+  endpoint-update: "0 0 12 * * *"
