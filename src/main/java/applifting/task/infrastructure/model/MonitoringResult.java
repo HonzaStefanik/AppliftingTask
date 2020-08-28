@@ -12,9 +12,18 @@ public class MonitoringResult {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private LocalDateTime lastCheck;
+    private LocalDateTime dateOfCheck;
     private Integer returnStatus;
     private String returnPayload;
+
+    public MonitoringResult() {
+    }
+
+    public MonitoringResult(LocalDateTime dateOfCheck, Integer returnStatus, String returnPayload){
+        this.dateOfCheck = dateOfCheck;
+        this.returnStatus = returnStatus;
+        this.returnPayload = returnPayload;
+    }
 
     public Integer getId() {
         return id;
@@ -24,12 +33,12 @@ public class MonitoringResult {
         this.id = id;
     }
 
-    public LocalDateTime getLastCheck() {
-        return lastCheck;
+    public LocalDateTime getDateOfCheck() {
+        return dateOfCheck;
     }
 
-    public void setLastCheck(LocalDateTime lastCheck) {
-        this.lastCheck = lastCheck;
+    public void setDateOfCheck(LocalDateTime lastCheck) {
+        this.dateOfCheck = lastCheck;
     }
 
     public Integer getReturnStatus() {

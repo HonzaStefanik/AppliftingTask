@@ -55,4 +55,14 @@ public class User {
     public void setMonitoredEndpoints(List<MonitoredEndpoint> monitoredEndpoints) {
         this.monitoredEndpoints = monitoredEndpoints;
     }
+
+    @Transient
+    public void addEndpoint(MonitoredEndpoint monitoredEndpoint){
+        this.monitoredEndpoints.add(monitoredEndpoint);
+    }
+
+    @Transient
+    public void removeEndpoint(MonitoredEndpoint monitoredEndpoint){
+        this.monitoredEndpoints.remove(monitoredEndpoint);
+    }
 }
