@@ -2,6 +2,7 @@ package applifting.task.infrastructure.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -16,6 +17,17 @@ public class MonitoredEndpoint {
     private LocalDateTime lastUpdatedDate;
     @OneToMany(targetEntity = MonitoringResult.class)
     private List<MonitoringResult> monitoringResults;
+
+    public MonitoredEndpoint() {
+    }
+
+    public MonitoredEndpoint(String name, String url, LocalDateTime createdDate) {
+        this.name = name;
+        this.url = url;
+        this.createdDate = createdDate;
+        this.lastUpdatedDate = null;
+        this.monitoringResults = Collections.emptyList();
+    }
 
     public Integer getId() {
         return id;

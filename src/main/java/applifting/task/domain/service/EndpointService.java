@@ -33,7 +33,11 @@ public class EndpointService {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
-    public void persist(MonitoredEndpoint monitoredEndpoint){
+    public void delete(int endpointId) {
+        monitoredEndpointRepository.deleteById(endpointId);
+    }
+
+    public void persist(MonitoredEndpoint monitoredEndpoint) {
         monitoredEndpointRepository.save(monitoredEndpoint);
     }
 }

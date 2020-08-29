@@ -32,18 +32,6 @@ public class UserEndpointService {
                         () -> log.info("Failed to persist endpoint for user with id {}", userId));
     }
 
-    public void removeMonitoredEndpoint(int userId, int endpointId) throws EntityNotFoundException {
-        MonitoredEndpoint monitoredEndpoint = endpointService.getEndpoint(endpointId);
-        userService.findById(userId)
-                .ifPresentOrElse(
-                        user -> {
-                            user.removeEndpoint(monitoredEndpoint);
-                            userService.persist(user);
-                        },
-                        () -> log.info("Failed to remove endpoint for user with id {}", userId)
-                );
-    }
-
     public List<MonitoredEndpoint> getMonitoredEndpoints(int userId) throws EntityNotFoundException {
         return userService.findById(userId)
                 .map(User::getMonitoredEndpoints)

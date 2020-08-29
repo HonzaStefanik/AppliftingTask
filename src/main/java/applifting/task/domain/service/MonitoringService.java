@@ -1,5 +1,6 @@
 package applifting.task.domain.service;
 
+import applifting.task.infrastructure.model.MonitoredEndpoint;
 import applifting.task.infrastructure.model.MonitoringResult;
 import applifting.task.infrastructure.model.User;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -8,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import static java.util.Collections.emptyList;
 
 @Service
 public class MonitoringService {
@@ -20,6 +24,10 @@ public class MonitoringService {
         this.restTemplate = restTemplateBuilder.build();
         this.userService = userService;
         this.endpointService = endpointService;
+    }
+
+    public void removeMonitoredEndpoint(int endpointId) {
+        endpointService.delete(endpointId);
     }
 
     public void updateMonitoredEndpointStatus() {
