@@ -10,4 +10,6 @@ spring:
     password: root
 
 jobs:
-  endpoint-update: "0 0 12 * * *"
+  endpoint-update:
+    enabled: true
+    cron: "0 0 12 * * *"
