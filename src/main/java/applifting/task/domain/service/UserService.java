@@ -28,6 +28,10 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public Optional<User> findByAccessToken(String accessToken) {
+        return  userRepository.findUserByAccessToken(accessToken);
+    }
+
     public void persist(User user) {
         userRepository.save(user);
     }

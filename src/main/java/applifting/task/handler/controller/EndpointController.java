@@ -4,7 +4,6 @@ import applifting.task.domain.exception.EntityNotFoundException;
 import applifting.task.domain.service.MonitoringService;
 import applifting.task.domain.service.UserEndpointService;
 import applifting.task.handler.dto.MonitoredEndpointDTO;
-import applifting.task.infrastructure.model.MonitoredEndpoint;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
