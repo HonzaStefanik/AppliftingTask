@@ -49,8 +49,8 @@ public class EndpointController {
     }
 
     @GetMapping("monitoring/{endpointId}")
-    public void updateMonitoredEndpoint(@PathVariable int endpointId) {
-        // TODO update only particular endpoint
+    public void updateMonitoredEndpoint(@PathVariable int endpointId) throws EntityNotFoundException {
+        monitoringService.updateMonitoredEndpoint(endpointId);
     }
 
 

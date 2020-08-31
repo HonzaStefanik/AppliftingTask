@@ -1,5 +1,6 @@
 package applifting.task.domain.service;
 
+import applifting.task.domain.exception.EntityNotFoundException;
 import applifting.task.infrastructure.model.MonitoredEndpoint;
 import applifting.task.infrastructure.model.MonitoringResult;
 import applifting.task.infrastructure.model.User;
@@ -35,22 +36,22 @@ public class MonitoringService {
                 .forEach(this::updateEndpoints);
     }
 
-    public void updateMonitoredEndpointStatus(int userId) {
-        userService.findById(userId)
-                .ifPresent(this::updateEndpoints);
+    public void updateMonitoredEndpoint(int endpointId) throws EntityNotFoundException {
+        endpointService.getEndpoint(endpointId);
     }
 
     private void updateEndpoints(User user) {
         user.getMonitoredEndpoints()
-                .forEach(endpoint -> {
-                            ResponseEntity<String> response = restTemplate.getForEntity(endpoint.getUrl(), String.class);
-                            LocalDateTime now = LocalDateTime.now();
-                            MonitoringResult result = createMonitoringResult(response, now);
-                            endpoint.getMonitoringResults().add(result);
-                            endpoint.setLastUpdatedDate(now);
-                            endpointService.persist(endpoint);
-                        }
-                );
+                .forEach(this::updateEndpoint);
+    }
+
+    private void updateEndpoint(MonitoredEndpoint endpoint) {
+        ResponseEntity<String> response = restTemplate.getForEntity(endpoint.getUrl(), String.class);
+        LocalDateTime now = LocalDateTime.now();
+        MonitoringResult result = createMonitoringResult(response, now);
+        endpoint.getMonitoringResults().add(result);
+        endpoint.setLastUpdatedDate(now);
+        endpointService.persist(endpoint);
     }
 
     private MonitoringResult createMonitoringResult(ResponseEntity<String> responseEntity, LocalDateTime time) {
