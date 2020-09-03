@@ -15,7 +15,11 @@ public class MonitoredEndpoint {
     private String url;
     private LocalDateTime createdDate;
     private LocalDateTime lastUpdatedDate;
-    @OneToMany(targetEntity = MonitoringResult.class)
+    @OneToMany(
+            targetEntity = MonitoringResult.class,
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true
+    )
     private List<MonitoringResult> monitoringResults;
 
     public MonitoredEndpoint() {
