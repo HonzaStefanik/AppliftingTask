@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class MonitoringService {
     }
 
     public void updateMonitoredEndpoint(int endpointId) throws EntityNotFoundException {
-        endpointService.getEndpoint(endpointId);
+        updateEndpoint(endpointService.getEndpoint(endpointId));
     }
 
     private void updateEndpoints(User user) {
@@ -46,9 +48,14 @@ public class MonitoringService {
     }
 
     private void updateEndpoint(MonitoredEndpoint endpoint) {
-        ResponseEntity<String> response = restTemplate.getForEntity(endpoint.getUrl(), String.class);
+        MonitoringResult result;
         LocalDateTime now = LocalDateTime.now();
-        MonitoringResult result = createMonitoringResult(response, now);
+        if (isAbsoluteUrl(endpoint.getUrl())) {
+            ResponseEntity<String> response = restTemplate.getForEntity(endpoint.getUrl(), String.class);
+            result = createMonitoringResult(response, now);
+        } else {
+            result = createInvalidUrlResult(now);
+        }
         endpoint.getMonitoringResults().add(result);
         endpoint.setLastUpdatedDate(now);
         endpointService.persist(endpoint);
@@ -60,5 +67,22 @@ public class MonitoringService {
                 responseEntity.getStatusCode().value(),
                 responseEntity.getBody()
         );
+    }
+
+    private MonitoringResult createInvalidUrlResult(LocalDateTime time) {
+        return new MonitoringResult(
+                time,
+                404,
+                null
+        );
+    }
+
+    private boolean isAbsoluteUrl(String url) {
+        try {
+            return new URI(url).isAbsolute();
+        } catch (URISyntaxException e) {
+            return false;
+        }
+
     }
 }

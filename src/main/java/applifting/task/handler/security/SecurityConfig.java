@@ -23,8 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/endpoint/**").permitAll()
-                .antMatchers("/result/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new TokenConfigurer(userService));

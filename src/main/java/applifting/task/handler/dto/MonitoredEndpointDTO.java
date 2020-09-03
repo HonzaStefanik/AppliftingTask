@@ -3,9 +3,12 @@ package applifting.task.handler.dto;
 import applifting.task.infrastructure.model.MonitoredEndpoint;
 import lombok.Generated;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class MonitoredEndpointDTO {
 
     private Integer id;

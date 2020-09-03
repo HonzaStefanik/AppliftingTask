@@ -1,9 +1,13 @@
 package applifting.task.handler.dto;
 
 import applifting.task.infrastructure.model.MonitoringResult;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class MonitoringResultDTO {
 
     private LocalDateTime dateOfCheck;

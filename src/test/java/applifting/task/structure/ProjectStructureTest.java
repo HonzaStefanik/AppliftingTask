@@ -21,29 +21,24 @@ public class ProjectStructureTest {
                 .layer("Handler").definedBy("..handler..")
                 .layer("Application").definedBy("..application..")
                 .layer("Domain").definedBy("..domain..")
-                .layer("Infrastructure").definedBy("..infrastructure..")
-                .layer("BaseTest").definedBy("..basetest..");
+                .layer("Infrastructure").definedBy("..infrastructure..");
     }
 
-    @ArchTest
-    public static final ArchRule handlersCannotBeAccessedByAnyLayer =
-            layers().whereLayer("Handler").mayNotBeAccessedByAnyLayer();
+   @ArchTest
+   public static final ArchRule handlersCannotBeAccessedByAnyLayer =
+           layers().whereLayer("Handler").mayNotBeAccessedByAnyLayer();
 
-    @ArchTest
-    public static final ArchRule applicationCanBeAccessedByHandlersOnly =
-            layers().whereLayer("Application").mayOnlyBeAccessedByLayers("Handler");
+   @ArchTest
+   public static final ArchRule applicationCanBeAccessedByHandlersOnly =
+           layers().whereLayer("Application").mayOnlyBeAccessedByLayers("Handler");
+   
+   @ArchTest
+   public static final ArchRule domainCanBeAccessedByAllLayers = layers()
+           .whereLayer("Domain").mayOnlyBeAccessedByLayers("Application", "Infrastructure", "Handler");
 
-    @ArchTest
-    public static final ArchRule infrastructureCannotBeAccessedByAnyLayer =
-            layers().whereLayer("Infrastructure").mayOnlyBeAccessedByLayers("Infrastructure", "BaseTest");
-
-    @ArchTest
-    public static final ArchRule domainCanBeAccessedByAllLayers = layers()
-            .whereLayer("Domain").mayOnlyBeAccessedByLayers("Application", "Infrastructure", "Handler");
-
-    @ArchTest
-    public static final ArchRule controllersOnlyInHandlerPackages = classes()
-            .that().areAnnotatedWith(Controller.class).should().resideInAPackage("..handler..");
+   @ArchTest
+   public static final ArchRule controllersOnlyInHandlerPackages = classes()
+           .that().areAnnotatedWith(Controller.class).should().resideInAPackage("..handler..");
 
     @ArchTest
     public static final ArchRule repositoriesInDomainPackageMustBeInterfaces = classes()

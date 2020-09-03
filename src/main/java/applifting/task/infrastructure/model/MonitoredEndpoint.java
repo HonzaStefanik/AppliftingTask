@@ -1,5 +1,8 @@
 package applifting.task.infrastructure.model;
 
+
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -15,9 +18,11 @@ public class MonitoredEndpoint {
     private String url;
     private LocalDateTime createdDate;
     private LocalDateTime lastUpdatedDate;
+    @ManyToOne
+    private User user;
     @OneToMany(
             targetEntity = MonitoringResult.class,
-            cascade = CascadeType.REMOVE,
+            cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<MonitoringResult> monitoringResults;
@@ -79,5 +84,13 @@ public class MonitoredEndpoint {
 
     public void setMonitoringResults(List<MonitoringResult> monitoringResults) {
         this.monitoringResults = monitoringResults;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

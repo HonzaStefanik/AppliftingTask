@@ -24,7 +24,7 @@ public class EndpointController {
     // TODO add authentication / authorization
 
     @GetMapping("/{userId}")
-    public List<MonitoredEndpointDTO> getMonitoredEndpoints(@PathVariable int userId) throws EntityNotFoundException {
+    public List<MonitoredEndpointDTO> getMonitoredEndpoints(@PathVariable int userId) {
         return userEndpointService.getMonitoredEndpoints(userId)
                 .stream()
                 .map(MonitoredEndpointDTO::fromMonitoredEndpoint)
@@ -47,7 +47,7 @@ public class EndpointController {
         monitoringService.removeMonitoredEndpoint(endpointId);
     }
 
-    @GetMapping("monitoring/{endpointId}")
+    @PostMapping("/monitoring/{endpointId}")
     public void updateMonitoredEndpoint(@PathVariable int endpointId) throws EntityNotFoundException {
         monitoringService.updateMonitoredEndpoint(endpointId);
     }

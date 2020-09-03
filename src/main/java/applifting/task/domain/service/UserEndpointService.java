@@ -7,6 +7,7 @@ import applifting.task.infrastructure.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,11 +16,9 @@ import java.util.Optional;
 public class UserEndpointService {
 
     private final UserService userService;
-    private final EndpointService endpointService;
 
-    public UserEndpointService(UserService userService, EndpointService endpointService) {
+    public UserEndpointService(UserService userService) {
         this.userService = userService;
-        this.endpointService = endpointService;
     }
 
     public void persistMonitoredEndoint(int userId, MonitoredEndpoint monitoredEndpoint) {
@@ -27,15 +26,16 @@ public class UserEndpointService {
                 .ifPresentOrElse(
                         user -> {
                             user.addEndpoint(monitoredEndpoint);
+                            monitoredEndpoint.setUser(user);
                             userService.persist(user);
                         },
                         () -> log.info("Failed to persist endpoint for user with id {}", userId));
     }
 
-    public List<MonitoredEndpoint> getMonitoredEndpoints(int userId) throws EntityNotFoundException {
+    public List<MonitoredEndpoint> getMonitoredEndpoints(int userId) {
         return userService.findById(userId)
                 .map(User::getMonitoredEndpoints)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElse(Collections.emptyList());
     }
 
 }

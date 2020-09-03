@@ -1,5 +1,7 @@
 package applifting.task.infrastructure.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
@@ -12,11 +14,12 @@ public class User {
     private Integer id;
     private String name;
     private String email;
-    private UUID accessToken;
+    private String accessToken;
     @OneToMany(
             targetEntity = MonitoredEndpoint.class,
-            cascade = CascadeType.REMOVE,
-            orphanRemoval = true
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "user"
     )
     private List<MonitoredEndpoint> monitoredEndpoints;
 
@@ -44,12 +47,12 @@ public class User {
         this.email = email;
     }
 
-    public UUID getAccessToken() {
+    public String getAccessToken() {
         return accessToken;
     }
 
-    public void setAccessToken(UUID access_Token) {
-        this.accessToken = access_Token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public List<MonitoredEndpoint> getMonitoredEndpoints() {
