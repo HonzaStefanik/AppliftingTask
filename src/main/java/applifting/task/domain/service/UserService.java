@@ -32,7 +32,11 @@ public class UserService {
         return  userRepository.findUserByAccessToken(accessToken);
     }
 
-    public void persist(User user) {
-        userRepository.save(user);
+    public User persist(User user) {
+        return userRepository.save(user);
+    }
+
+    public void deleteById(int id){
+        userRepository.deleteById(id);
     }
 }

@@ -1,6 +1,8 @@
 package applifting.task.infrastructure.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class MonitoredEndpoint {
 
     @Id
@@ -27,7 +31,13 @@ public class MonitoredEndpoint {
     )
     private List<MonitoringResult> monitoringResults;
 
-    public MonitoredEndpoint() {
+    public MonitoredEndpoint(String name, String url, LocalDateTime createdDate, LocalDateTime lastUpdatedDate, User user, List<MonitoringResult> monitoringResults) {
+        this.name = name;
+        this.url = url;
+        this.createdDate = createdDate;
+        this.lastUpdatedDate = lastUpdatedDate;
+        this.user = user;
+        this.monitoringResults = monitoringResults;
     }
 
     public MonitoredEndpoint(String name, String url, LocalDateTime createdDate) {

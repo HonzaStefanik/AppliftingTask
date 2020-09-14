@@ -1,5 +1,7 @@
 package applifting.task.infrastructure.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -7,6 +9,8 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -19,9 +23,17 @@ public class User {
             targetEntity = MonitoredEndpoint.class,
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            mappedBy = "user"
+            mappedBy = "user",
+            fetch = FetchType.EAGER
     )
     private List<MonitoredEndpoint> monitoredEndpoints;
+
+    public User(String name, String email, String accessToken, List<MonitoredEndpoint> monitoredEndpoints) {
+        this.name = name;
+        this.email = email;
+        this.accessToken = accessToken;
+        this.monitoredEndpoints = monitoredEndpoints;
+    }
 
     public Integer getId() {
         return id;

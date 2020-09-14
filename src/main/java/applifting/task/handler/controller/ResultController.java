@@ -21,7 +21,6 @@ public class ResultController {
         this.endpointService = endpointService;
     }
 
-    // TODO authorization / authentication (assuming only user who monitors the endpoint should see the result - check the assignment later)
     @GetMapping(value = "/{endpointId}")
     public List<MonitoringResultDTO> getResultsForEndpoint(@PathVariable Integer endpointId) throws EntityNotFoundException {
         return endpointService.getRecentResults(endpointId)

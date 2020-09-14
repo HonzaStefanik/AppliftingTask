@@ -31,7 +31,7 @@ public class ProjectStructureTest {
    @ArchTest
    public static final ArchRule applicationCanBeAccessedByHandlersOnly =
            layers().whereLayer("Application").mayOnlyBeAccessedByLayers("Handler");
-   
+
    @ArchTest
    public static final ArchRule domainCanBeAccessedByAllLayers = layers()
            .whereLayer("Domain").mayOnlyBeAccessedByLayers("Application", "Infrastructure", "Handler");

@@ -21,7 +21,6 @@ public class EndpointController {
         this.userEndpointService = userEndpointService;
     }
 
-    // TODO add authentication / authorization
 
     @GetMapping("/{userId}")
     public List<MonitoredEndpointDTO> getMonitoredEndpoints(@PathVariable int userId) {

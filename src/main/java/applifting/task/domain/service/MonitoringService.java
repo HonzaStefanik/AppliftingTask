@@ -12,9 +12,6 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
-import java.util.List;
-
-import static java.util.Collections.emptyList;
 
 @Service
 public class MonitoringService {

@@ -55,7 +55,7 @@ public class EndpointService {
         });
     }
 
-    public void persist(MonitoredEndpoint monitoredEndpoint) {
-        monitoredEndpointRepository.save(monitoredEndpoint);
+    public MonitoredEndpoint persist(MonitoredEndpoint monitoredEndpoint) {
+        return monitoredEndpointRepository.save(monitoredEndpoint);
     }
 }
