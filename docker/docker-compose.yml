@@ -1,8 +1,14 @@
 version: '3'
 
 services:
-  # TODO
-  # monitoring-service
+  applifting-task:
+    image: applifting-task:latest
+    hostname: applifting-task
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    #environment:
+      #JAVA_OPTS: empty
 
   mysql:
     image: mysql:latest

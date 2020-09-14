@@ -5,7 +5,7 @@ spring:
     show-sql: true
 
   datasource:
-    url: jdbc:mysql://172.22.0.2:3306/applifting
+    url: jdbc:mysql://mysql:3306/applifting
     username: root
     password: root
 

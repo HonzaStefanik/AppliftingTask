@@ -23,5 +23,6 @@ ENV JAVA_OPTS=""
 COPY docker/docker-entrypoint.sh /
 COPY --from=builder /tmp/target/*.jar /var/lib/app/application.jar
 
+RUN ["chmod", "+x", "/docker-entrypoint.sh"]
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["run"]
